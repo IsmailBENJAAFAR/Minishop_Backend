@@ -1,0 +1,16 @@
+version: "3.0"
+
+services:
+  shopdb:
+    container_name: shopdb
+    image: mysql
+    ports:
+      - "4444:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - db_minishop:/var/lib/mysql
+
+volumes:
+  db_minishop:
