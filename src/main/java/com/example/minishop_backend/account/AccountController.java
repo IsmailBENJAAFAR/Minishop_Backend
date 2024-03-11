@@ -1,20 +1,21 @@
-package com.example.minishop_backend.controllers;
+package com.example.minishop_backend.account;
 
-import com.example.minishop_backend.services.CreateAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+@RequestMapping("/account")
+public class AccountController {
 
-    private final CreateAccountService createAccountService;
+    private final AccountService createAccountService;
 
     @Autowired
-    public HelloController(CreateAccountService createAccountService) {
+    public AccountController(AccountService createAccountService) {
         this.createAccountService = createAccountService;
     }
-    @GetMapping("/hello")
+    @GetMapping("/testCreate")
     public String hello() {
         createAccountService.createAccount("soufiane", "samini");
 

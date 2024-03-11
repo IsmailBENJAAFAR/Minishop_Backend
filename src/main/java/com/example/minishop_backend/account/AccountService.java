@@ -1,15 +1,13 @@
-package com.example.minishop_backend.services;
+package com.example.minishop_backend.account;
 
-import com.example.minishop_backend.entities.Account;
-import com.example.minishop_backend.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreateAccountService {
+public class AccountService {
     private final AccountRepository accountRepository;
     @Autowired
-    public CreateAccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 

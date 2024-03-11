@@ -1,4 +1,4 @@
-package com.example.minishop_backend.entities;
+package com.example.minishop_backend.account;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

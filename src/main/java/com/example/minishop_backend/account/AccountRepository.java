@@ -1,6 +1,5 @@
-package com.example.minishop_backend.repositories;
+package com.example.minishop_backend.account;
 
-import com.example.minishop_backend.entities.Account;
 import org.springframework.data.repository.Repository;
 
 import java.util.Optional;
