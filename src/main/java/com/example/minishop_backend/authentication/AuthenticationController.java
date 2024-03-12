@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody User user) {
         return ResponseEntity.ok(authenticationService.register(user));
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody User user) {
         return ResponseEntity.ok(authenticationService.authenticate(user));
     }
