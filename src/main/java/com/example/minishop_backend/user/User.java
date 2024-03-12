@@ -31,6 +31,10 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
