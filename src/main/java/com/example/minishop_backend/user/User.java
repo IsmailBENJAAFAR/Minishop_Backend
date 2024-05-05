@@ -1,5 +1,9 @@
 package com.example.minishop_backend.user;
 
+import com.example.minishop_backend.carteBancaire.CarteBanquaire;
+import com.example.minishop_backend.commande.Commande;
+import com.example.minishop_backend.notation.Notation;
+import com.example.minishop_backend.produit.Produit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -7,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,7 +27,16 @@ public class User implements UserDetails {
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-
+    @OneToMany(mappedBy = "user")
+    private ArrayList<CarteBanquaire> cartesBanquaire;
+    @ManyToMany(mappedBy = "users")
+    private ArrayList<Notation> notations;
+    @ManyToMany
+    @JoinTable(name = "Favoriser")
+    private ArrayList<Produit> produits;
+    @ManyToMany
+    @JoinTable(name = "Commander")
+    private ArrayList<Commande> commandes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

@@ -1,8 +1,18 @@
 package com.example.minishop_backend.image;
 
+import com.example.minishop_backend.produit.Produit;
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class Image {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
 
     public Image(Long id, String url) {
         this.id = id;

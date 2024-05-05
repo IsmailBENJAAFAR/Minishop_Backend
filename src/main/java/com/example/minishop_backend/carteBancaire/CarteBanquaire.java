@@ -1,10 +1,20 @@
 package com.example.minishop_backend.carteBancaire;
 
-import jakarta.persistence.Entity;
+import com.example.minishop_backend.user.User;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "carte_banquaire")
 public class CarteBanquaire {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    public CarteBanquaire() {
+    }
 
     public CarteBanquaire(Long id, String type) {
         this.id = id;

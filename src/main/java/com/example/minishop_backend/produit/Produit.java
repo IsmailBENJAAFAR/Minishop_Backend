@@ -1,6 +1,19 @@
 package com.example.minishop_backend.produit;
 
+import com.example.minishop_backend.discount.Discount;
+import com.example.minishop_backend.image.Image;
+import com.example.minishop_backend.items.Items;
+import com.example.minishop_backend.notation.Notation;
+import com.example.minishop_backend.user.User;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+
+@Entity
+@Table
 public class Produit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private String name;
     private String cataegory;
@@ -8,6 +21,19 @@ public class Produit {
     private String brand;
     private String description;
     private int quantity;
+    @OneToMany(mappedBy = "produit")
+    private ArrayList<Image> images;
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+    @OneToOne(mappedBy = "produit")
+    private Items items;
+    @ManyToMany(mappedBy = "produits")
+    private ArrayList<Notation> notations;
+    @ManyToMany(mappedBy = "produits")
+    private ArrayList<User> users;
+    public Produit() {
+    }
 
     public Produit(Long id,
                    String name,

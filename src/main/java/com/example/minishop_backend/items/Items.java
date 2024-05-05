@@ -1,8 +1,24 @@
 package com.example.minishop_backend.items;
 
+import com.example.minishop_backend.commande.Commande;
+import com.example.minishop_backend.produit.Produit;
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class Items {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int Quantity;
+    @ManyToOne
+    @JoinColumn(name = "commande_id")
+    private Commande commande;
+    @OneToOne
+    @JoinColumn(name = "produit_id",referencedColumnName = "id")
+    private Produit produit;
+    public Items() {
+    }
 
     public Items(Long id, int quantity) {
         this.id = id;

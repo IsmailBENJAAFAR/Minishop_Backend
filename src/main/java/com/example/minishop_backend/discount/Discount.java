@@ -1,12 +1,23 @@
 package com.example.minishop_backend.discount;
 
-import java.util.Date;
+import com.example.minishop_backend.produit.Produit;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Date;
+@Entity
+@Table
 public class Discount {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private float percentage;
+    @Temporal(TemporalType.DATE)
     private Date startDate;
+    @Temporal(TemporalType.DATE)
     private Date endDate;
+    @OneToMany(mappedBy = "discount")
+    private ArrayList<Produit> produits;
 
     public Discount(Long id, float percentage, Date startDate, Date endDate) {
         this.id = id;

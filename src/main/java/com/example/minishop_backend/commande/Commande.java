@@ -1,10 +1,25 @@
 package com.example.minishop_backend.commande;
 
-import java.util.Date;
+import com.example.minishop_backend.items.Items;
+import com.example.minishop_backend.user.User;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Date;
+@Entity
+@Table
 public class Commande {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
+    @Temporal(TemporalType.DATE)
     private Date date;
+    @OneToMany(mappedBy = "commande")
+    private ArrayList<Items> items;
+    @ManyToMany(mappedBy = "commandes")
+    private ArrayList<User> users;
+    public Commande() {
+    }
 
     public Commande(Long id, Date date) {
         this.id = id;

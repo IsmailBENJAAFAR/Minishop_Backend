@@ -1,8 +1,23 @@
 package com.example.minishop_backend.notation;
 
+import com.example.minishop_backend.produit.Produit;
+import com.example.minishop_backend.user.User;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+
+import java.util.ArrayList;
+
 public class Notation {
     private Long id;
     private int etoiles;
+    @ManyToMany
+    @JoinTable(name = "Notation_Produit")
+    private ArrayList<Produit> produits;
+    @ManyToMany
+    @JoinTable(name = "Notation_User")
+    private ArrayList<User> users;
+    public Notation() {
+    }
 
     public Notation(Long id, int etoiles) {
         this.id = id;
