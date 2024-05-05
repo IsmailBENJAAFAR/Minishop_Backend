@@ -2,20 +2,20 @@ package com.example.minishop_backend.discount;
 
 import java.util.Date;
 
-public class Discoount {
+public class Discount {
     private Long id;
     private float percentage;
     private Date startDate;
     private Date endDate;
 
-    public Discoount(Long id, float percentage, Date startDate, Date endDate) {
+    public Discount(Long id, float percentage, Date startDate, Date endDate) {
         this.id = id;
         this.percentage = percentage;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Discoount(float percentage, Date startDate, Date endDate) {
+    public Discount(float percentage, Date startDate, Date endDate) {
         this.percentage = percentage;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -55,7 +55,7 @@ public class Discoount {
 
     @Override
     public String toString() {
-        return "Discoount{" +
+        return "Discount{" +
                 "id=" + id +
                 ", percentage=" + percentage +
                 ", startDate=" + startDate +

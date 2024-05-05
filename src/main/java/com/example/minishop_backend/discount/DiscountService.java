@@ -6,10 +6,10 @@ import java.util.List;
 
 @Service
 public class DiscountService {
-    public List<Discoount> getDiscoounts(){
+    public List<Discount> getDiscoounts(){
         return null;
     }
-    public void addDiscoount(Discoount discoount){
+    public void addDiscoount(Discount discoount){
 
     }
     public void updateDiscoount(Long id){
@@ -18,7 +18,7 @@ public class DiscountService {
     public void deleteDiscoount(){
 
     }
-    public List<Discoount> searchDiscoount(){
+    public List<Discount> searchDiscoount(){
         return null;
     }
 }
