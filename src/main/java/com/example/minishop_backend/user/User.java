@@ -34,8 +34,7 @@ public class User implements UserDetails {
     @ManyToMany
     @JoinTable(name = "Favoriser")
     private ArrayList<Produit> produits;
-    @ManyToMany
-    @JoinTable(name = "Commander")
+    @OneToMany(mappedBy = "user")
     private ArrayList<Commande> commandes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

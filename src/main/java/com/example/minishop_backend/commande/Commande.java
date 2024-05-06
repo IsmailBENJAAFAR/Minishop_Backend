@@ -16,8 +16,9 @@ public class Commande {
     private Date date;
     @OneToMany(mappedBy = "commande")
     private ArrayList<Items> items;
-    @ManyToMany(mappedBy = "commandes")
-    private ArrayList<User> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private  User user;
     public Commande() {
     }
 
