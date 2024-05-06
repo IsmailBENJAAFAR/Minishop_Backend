@@ -13,7 +13,8 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "produit_id")
     private Produit produit;
-
+    private Image(){
+    }
     public Image(Long id, String url) {
         this.id = id;
         this.url = url;
