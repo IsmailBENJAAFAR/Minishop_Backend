@@ -25,6 +25,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String email;
+    private String adresse;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user")
@@ -36,6 +37,7 @@ public class User implements UserDetails {
     private ArrayList<Produit> produits;
     @OneToMany(mappedBy = "user")
     private ArrayList<Commande> commandes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
