@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Email is required")
     private String email;
     @NotBlank(message = "Address is required")
-    private String adresse;
+    private String adress;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user")
@@ -112,10 +112,10 @@ public class User implements UserDetails {
     }
 
     public String getAdresse() {
-        return adresse;
+        return adress;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdresse(String adress) {
+        this.adress = adress;
     }
 }

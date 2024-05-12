@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
     private String name;
-    private String cataegory;
+    private String category;
     private float price;
     private String brand;
     private String description;
@@ -32,19 +32,20 @@ public class Produit {
     private ArrayList<Notation> notations;
     @ManyToMany(mappedBy = "produits")
     private ArrayList<User> users;
+
     public Produit() {
     }
 
     public Produit(Long id,
                    String name,
-                   String cataegory,
+                   String category,
                    float price,
                    String brand,
                    String description,
                    int quantity) {
         this.id = id;
         this.name = name;
-        this.cataegory = cataegory;
+        this.category = category;
         this.price = price;
         this.brand = brand;
         this.description = description;
@@ -52,13 +53,13 @@ public class Produit {
     }
 
     public Produit(String name,
-                   String cataegory,
+                   String category,
                    float price,
                    String brand,
                    String description,
                    int quantity) {
         this.name = name;
-        this.cataegory = cataegory;
+        this.category = category;
         this.price = price;
         this.brand = brand;
         this.description = description;
@@ -82,11 +83,11 @@ public class Produit {
     }
 
     public String getCataegory() {
-        return cataegory;
+        return category;
     }
 
-    public void setCataegory(String cataegory) {
-        this.cataegory = cataegory;
+    public void setCataegory(String category) {
+        this.category = category;
     }
 
     public float getPrice() {
@@ -126,7 +127,7 @@ public class Produit {
         return "Produit{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cataegory='" + cataegory + '\'' +
+                ", cataegory='" + category + '\'' +
                 ", price=" + price +
                 ", brand='" + brand + '\'' +
                 ", description='" + description + '\'' +

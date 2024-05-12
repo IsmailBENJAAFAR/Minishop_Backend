@@ -10,23 +10,24 @@ public class Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int Quantity;
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "commande_id")
     private Commande commande;
     @OneToOne
-    @JoinColumn(name = "produit_id",referencedColumnName = "id")
+    @JoinColumn(name = "produit_id", referencedColumnName = "id")
     private Produit produit;
+
     public Items() {
     }
 
     public Items(Long id, int quantity) {
         this.id = id;
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public Items(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -38,18 +39,18 @@ public class Items {
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
         return "Items{" +
                 "id=" + id +
-                ", Quantity=" + Quantity +
+                ", Quantity=" + quantity +
                 '}';
     }
 }
