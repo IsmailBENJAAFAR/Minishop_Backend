@@ -1,32 +1,37 @@
+version: '3.7'
+
 services:
-  shopdb:
-    container_name: shopdb
-    image: mysql
+  mysql:
+    image: mysql:latest
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-    volumes:
-      - db_minishop:/var/lib/mysql
-    networks:
-      - app-network
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: shopdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+  
+  mavenapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/mydatabase
+      DATABASE_USER: user
+      DATABASE_PASSWORD: userpassword
+    ports:
+      - "8080:8080"
+      
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
     restart: always
-    ports:
-      - 8001:80
+    links:
+      - mysql
     environment:
-      - PMA_HOST=shopdb
-      - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=rootpassword
-    depends_on:
-      - shopdb
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
-
-volumes:
-  db_minishop:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
