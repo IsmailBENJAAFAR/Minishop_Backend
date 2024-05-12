@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   mysql:
     image: mysql:latest
@@ -10,28 +8,22 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: userpassword
     ports:
-      - "3306:3306"
-  
-  mavenapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - mysql
-    environment:
-      DATABASE_URL: jdbc:mysql://mysql:3306/mydatabase
-      DATABASE_USER: user
-      DATABASE_PASSWORD: userpassword
-    ports:
-      - "8080:8080"
-      
+      - "5555:3306"
+    networks:
+      - app-network
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
-    links:
-      - mysql
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
