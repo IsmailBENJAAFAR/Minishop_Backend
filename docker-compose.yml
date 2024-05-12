@@ -2,13 +2,31 @@ services:
   shopdb:
     container_name: shopdb
     image: mysql
-    ports:
-      - "4444:3306"
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
     volumes:
       - db_minishop:/var/lib/mysql
+    networks:
+      - app-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=shopdb
+      - PMA_PORT=3306
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    depends_on:
+      - shopdb
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   db_minishop:
