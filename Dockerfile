@@ -1,8 +1,7 @@
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17
 
-# set shell to bash
-RUN apk update && apk add bash
+RUN bash
 
 # Set the working directory to /app
 WORKDIR /app
