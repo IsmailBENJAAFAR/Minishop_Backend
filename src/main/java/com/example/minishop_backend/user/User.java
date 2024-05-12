@@ -5,6 +5,7 @@ import com.example.minishop_backend.commande.Commande;
 import com.example.minishop_backend.notation.Notation;
 import com.example.minishop_backend.produit.Produit;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,9 +23,14 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
+    @NotBlank(message = "Username is required")
     private String username;
+    @NotBlank(message = "Password is required")
     private String password;
+    @NotBlank(message = "Email is required")
     private String email;
+    @NotBlank(message = "Address is required")
     private String adresse;
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -103,5 +109,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 }

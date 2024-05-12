@@ -4,11 +4,18 @@ import com.example.minishop_backend.jwt.JwtService;
 import com.example.minishop_backend.user.Role;
 import com.example.minishop_backend.user.User;
 import com.example.minishop_backend.user.UserRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +29,19 @@ public class AuthenticationService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
+        user.setAdresse(request.getAdresse());
 
         user.setRole(Role.USER);
 
-        user = userRepository.save(user);
+        try {
+            user = userRepository.save(user);
+        } catch (ConstraintViolationException exception) {
+            List<String> constraints =
+                    exception.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+            String message = String.join(", ", constraints);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+        }
 
         String token = jwtService.generateToken(user);
 
@@ -36,8 +52,8 @@ public class AuthenticationService {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getPassword(),
-                            request.getUsername()
+                            request.getUsername(),
+                            request.getPassword()
                     )
             );
         } catch (Exception e) {
