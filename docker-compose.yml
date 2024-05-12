@@ -1,17 +1,17 @@
 services:
-  mysql:
-    container_name: mysql1
+  shopdb:
+    container_name: shopdb
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: shopdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
-    ports:
-      - "5555:3306"
+      - MYSQL_ROOT_PASSWOR=rootpassword
+      - MYSQL_DATABASE=shopdb
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=userpassword
     networks:
       - app-network
+    volumes:
+      - db_minishop:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
@@ -22,12 +22,12 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      mysql:
+      shopdb:
         condition: service_healthy
     environment:
-      DATABASE_URL: jdbc:mysql://mysql1:5555/shopdb?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
-      DATABASE_USER: root
-      DATABASE_PASSWORD: rootpassword
+      - DATABASE_URL=jdbc:mysql://shopdb:3306/shopdb?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=rootpassword
     ports:
       - "8080:8080"
     networks:
@@ -42,9 +42,11 @@ services:
     ports:
       - "8081:80"
     depends_on:
-      - mysql
+      - shopdb
     networks:
       - app-network
 networks:
   app-network:
     driver: bridge
+volumes:
+  db_minishop:
