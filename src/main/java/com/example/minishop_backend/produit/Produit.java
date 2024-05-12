@@ -8,6 +8,7 @@ import com.example.minishop_backend.user.User;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,16 +23,16 @@ public class Produit {
     private String description;
     private int quantity;
     @OneToMany(mappedBy = "produit")
-    private ArrayList<Image> images;
+    private List<Image> images;
     @ManyToOne
     @JoinColumn(name = "discount_id")
     private Discount discount;
     @OneToOne(mappedBy = "produit")
     private Items items;
     @ManyToMany(mappedBy = "produits")
-    private ArrayList<Notation> notations;
+    private List<Notation> notations;
     @ManyToMany(mappedBy = "produits")
-    private ArrayList<User> users;
+    private List<User> users;
 
     public Produit() {
     }

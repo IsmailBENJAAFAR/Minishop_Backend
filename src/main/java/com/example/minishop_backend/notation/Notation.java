@@ -5,6 +5,7 @@ import com.example.minishop_backend.user.User;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Notation {
@@ -14,10 +15,10 @@ public class Notation {
     private int etoiles;
     @ManyToMany
     @JoinTable(name = "Notation_Produit")
-    private ArrayList<Produit> produits;
+    private List<Produit> produits;
     @ManyToMany
     @JoinTable(name = "Notation_User")
-    private ArrayList<User> users;
+    private List<User> users;
 
     public Notation() {
     }

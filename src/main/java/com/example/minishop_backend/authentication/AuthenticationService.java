@@ -30,7 +30,7 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
-        user.setAdresse(request.getAdresse());
+        user.setAddress(request.getAddress());
 
         user.setRole(Role.USER);
 
@@ -40,6 +40,7 @@ public class AuthenticationService {
             List<String> constraints =
                     exception.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
             String message = String.join(", ", constraints);
+            System.out.println(exception.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
         }
 

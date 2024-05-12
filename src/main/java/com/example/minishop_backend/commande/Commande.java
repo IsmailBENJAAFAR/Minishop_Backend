@@ -6,19 +6,22 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
     @Temporal(TemporalType.DATE)
     private Date date;
     @OneToMany(mappedBy = "commande")
-    private ArrayList<Items> items;
+    private List<Items> items;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private  User user;
+    private User user;
+
     public Commande() {
     }
 

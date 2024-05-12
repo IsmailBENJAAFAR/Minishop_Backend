@@ -12,7 +12,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,18 +30,18 @@ public class User implements UserDetails {
     @NotBlank(message = "Email is required")
     private String email;
     @NotBlank(message = "Address is required")
-    private String adress;
+    private String address;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "user")
-    private ArrayList<CarteBanquaire> cartesBanquaire;
+    private List<CarteBanquaire> cartesBanquaire;
     @ManyToMany(mappedBy = "users")
-    private ArrayList<Notation> notations;
+    private List<Notation> notations;
     @ManyToMany
     @JoinTable(name = "Favoriser")
-    private ArrayList<Produit> produits;
+    private List<Produit> produits;
     @OneToMany(mappedBy = "user")
-    private ArrayList<Commande> commandes;
+    private List<Commande> commandes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -111,11 +110,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getAdresse() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdresse(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
