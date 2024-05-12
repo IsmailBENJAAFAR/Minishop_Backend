@@ -7,7 +7,6 @@ import com.example.minishop_backend.notation.Notation;
 import com.example.minishop_backend.user.User;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -83,11 +82,11 @@ public class Produit {
         this.name = name;
     }
 
-    public String getCataegory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCataegory(String category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -128,7 +127,7 @@ public class Produit {
         return "Produit{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cataegory='" + category + '\'' +
+                ", category='" + category + '\'' +
                 ", price=" + price +
                 ", brand='" + brand + '\'' +
                 ", description='" + description + '\'' +

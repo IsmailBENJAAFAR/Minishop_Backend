@@ -13,8 +13,8 @@ public class DemoController {
     private final UserService userService;
 
     @GetMapping("/demo")
-    public ResponseEntity<String> register() {
+    public ResponseEntity<User> register() {
         User user = userService.getCurrentUser();
-        return ResponseEntity.ok("You are secure " + user.getUsername() + " your id is: " + user.getId());
+        return ResponseEntity.ok(user);
     }
 }
