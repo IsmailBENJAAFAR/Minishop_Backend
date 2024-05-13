@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWOR=rootpassword
+      - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=shopdb
       - MYSQL_USER=user
       - MYSQL_PASSWORD=userpassword
@@ -36,7 +36,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: shopdb
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
