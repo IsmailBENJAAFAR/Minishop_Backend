@@ -16,12 +16,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(unique = true)
     @NotBlank(message = "Username is required")
     private String username;
@@ -43,12 +42,16 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Commande> commandes;
 
+    public User() {
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,7 +67,7 @@ public class User implements UserDetails {
         return role;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

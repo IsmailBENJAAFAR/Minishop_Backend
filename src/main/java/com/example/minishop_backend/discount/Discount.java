@@ -20,6 +20,9 @@ public class Discount {
     @OneToMany(mappedBy = "discount")
     private List<Produit> produits;
 
+    public Discount() {
+    }
+
     public Discount(Long id, float percentage, Date startDate, Date endDate) {
         this.id = id;
         this.percentage = percentage;

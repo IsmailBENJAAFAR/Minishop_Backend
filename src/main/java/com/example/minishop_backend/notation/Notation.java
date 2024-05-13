@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table
 public class Notation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
