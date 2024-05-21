@@ -14,7 +14,7 @@ services:
       - db_minishop:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
+      timeout: 5s
       retries: 10
 
   mavenapp:
@@ -32,6 +32,8 @@ services:
       - "8080:8080"
     networks:
       - app-network
+    volumes:
+      - .:/app
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
@@ -45,8 +47,10 @@ services:
       - shopdb
     networks:
       - app-network
+
 networks:
   app-network:
     driver: bridge
+
 volumes:
   db_minishop:
