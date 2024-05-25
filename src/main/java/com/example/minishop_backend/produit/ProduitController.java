@@ -1,20 +1,23 @@
 package com.example.minishop_backend.produit;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("produit")
+@RequestMapping("product")
 @RequiredArgsConstructor
 public class ProduitController {
     private final ProduitService produitService;
 
-    @GetMapping
+    @GetMapping("products")
     public List<Produit> findProducts() {
         return produitService.getProduits();
+    }
+
+    @PostMapping(path = "adminOnly/new")
+    public void registerNewProduct(@RequestBody Produit produit){
+        produitService.addProduit(produit);
     }
 }
