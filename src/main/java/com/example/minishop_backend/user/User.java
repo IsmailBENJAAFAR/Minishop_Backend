@@ -5,6 +5,7 @@ import com.example.minishop_backend.commande.Commande;
 import com.example.minishop_backend.notation.Notation;
 import com.example.minishop_backend.produit.Produit;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +26,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Password is required")
     private String password;
     @NotBlank(message = "Email is required")
+    @Email(message = "Not a valid email")
     private String email;
     @NotBlank(message = "Address is required")
     private String address;
