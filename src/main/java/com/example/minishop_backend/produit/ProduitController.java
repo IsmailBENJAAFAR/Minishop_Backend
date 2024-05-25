@@ -26,15 +26,20 @@ public class ProduitController {
     }
     @PutMapping("adminOnly/update/{productId}")
     public void updateProduct(
-            @PathVariable("productID") Long id,
+            @PathVariable("productId") Long id,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String category,
-            @RequestParam(required = false) float price,
+            @RequestParam(required = false) Float price,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) int quantity
+            @RequestParam(required = false) Integer quantity
     ){
-        Produit produit = new Produit(id,name,category,price,brand,description,quantity);
-        produitService.updateProduit(produit);
+        if (price == null){
+            price = (float) 0;
+        }
+        if (quantity == null){
+            quantity = -1;
+        }
+        produitService.updateProduit(id,name,category,price,brand,description,quantity);
     }
 }

@@ -27,37 +27,45 @@ public class ProduitService {
 
     }
     @Transactional
-    public void updateProduit(Produit produit) {
-        Produit oldProduit = produitRepository.findById(produit.getId())
+    public void updateProduit(
+            Long id,
+            String name,
+            String category,
+            float price,
+            String brand,
+            String description,
+            int quantity
+    ) {
+        Produit oldProduit = produitRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException(
-                        "product with id " + produit.getId() + " does not exists"));
-        if(produit.getName() != null &&
-                !produit.getName().isEmpty() &&
-                !Objects.equals(oldProduit.getName(),produit.getName())){
-            oldProduit.setName(produit.getName());
+                        "product with id " + id + " does not exists"));
+        if(name != null &&
+                !name.isEmpty() &&
+                !Objects.equals(oldProduit.getName(),name)){
+            oldProduit.setName(name);
         }
-        if(produit.getCategory() != null &&
-                !produit.getCategory().isEmpty() &&
-                !Objects.equals(oldProduit.getCategory(),produit.getCategory())){
-            oldProduit.setCategory(produit.getCategory());
+        if(category != null &&
+                !category.isEmpty() &&
+                !Objects.equals(oldProduit.getCategory(),category)){
+            oldProduit.setCategory(category);
         }
-        if(produit.getPrice() > 0 &&
-                oldProduit.getPrice()!=produit.getPrice()){
-            oldProduit.setPrice(produit.getPrice());
+        if(price > 0 &&
+                oldProduit.getPrice()!=price){
+            oldProduit.setPrice(price);
         }
-        if(produit.getBrand() != null &&
-                !produit.getBrand().isEmpty() &&
-                !Objects.equals(oldProduit.getBrand(),produit.getBrand())){
-            oldProduit.setBrand(produit.getBrand());
+        if(brand != null &&
+                !brand.isEmpty() &&
+                !Objects.equals(oldProduit.getBrand(),brand)){
+            oldProduit.setBrand(brand);
         }
-        if(produit.getDescription() != null &&
-                !produit.getDescription().isEmpty() &&
-                !Objects.equals(oldProduit.getDescription(),produit.getDescription())){
-            oldProduit.setDescription(produit.getDescription());
+        if(description != null &&
+                !description.isEmpty() &&
+                !Objects.equals(oldProduit.getDescription(),description)){
+            oldProduit.setDescription(description);
         }
-        if(produit.getQuantity() >= 0 &&
-                oldProduit.getQuantity()!=produit.getQuantity()){
-            oldProduit.setQuantity(produit.getQuantity());
+        if(quantity >= 0 &&
+                oldProduit.getQuantity()!=quantity){
+            oldProduit.setQuantity(quantity);
         }
     }
 
