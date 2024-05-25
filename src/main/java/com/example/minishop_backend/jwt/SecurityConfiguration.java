@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll())
                 .authorizeHttpRequests(
-                        req -> req.requestMatchers("/auth/**")
+                        req -> req.requestMatchers("/auth/**", "/produit/all")
                                 .permitAll()
                                 .requestMatchers("/adminOnly/**").hasAuthority("ADMIN")
                                 .anyRequest()
