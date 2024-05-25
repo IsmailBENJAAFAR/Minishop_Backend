@@ -42,4 +42,18 @@ public class ProduitController {
         }
         produitService.updateProduit(id,name,category,price,brand,description,quantity);
     }
+    @GetMapping("search")
+    public List<Produit> searchProduit(@RequestParam(required = false) String name,
+                              @RequestParam(required = false) String brand,
+                              @RequestParam(required = false) String category,
+                                       @RequestParam(required = false) Float lowerPrice,
+                                       @RequestParam(required = false) Float higherPrice){
+        if (lowerPrice == null){
+            lowerPrice = (float) 0;
+        }
+        if (higherPrice == null){
+            higherPrice = 99999999F;
+        }
+        return produitService.searchProduit(name,brand,category,lowerPrice,higherPrice);
+    }
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class ProduitService {
     }
 
     public void addProduit(Produit produit) {
-        Optional<Produit> produitByName = produitRepository.findProductByName(produit.getName());
+        Optional<Produit> produitByName = produitRepository.isExist(produit.getName(),produit.getBrand());
 
         if (produitByName.isPresent()){
             throw new IllegalStateException("name taken");
@@ -77,8 +78,29 @@ public class ProduitService {
         produitRepository.deleteById(id);
     }
 
-    public List<Produit> searchProduit() {
-        return null;
-    }
+    public List<Produit> searchProduit(String name, String brand, String category,float lowerPrice,float higherPrice) {
+        List<Produit> searchedproducts = new ArrayList<Produit>();
+        if(brand != null &&
+                !brand.isEmpty()){
+            searchedproducts.addAll(produitRepository.findProductByBrand(brand));
+        }
+        if(name != null &&
+                !name.isEmpty()){
+            searchedproducts.addAll(produitRepository.findProductByName(name));
+        }
+        if(category != null &&
+                !category.isEmpty()){
+            searchedproducts.addAll(produitRepository.findProductByCategory(category));
+        }
+        //searchedproducts.stream().filter(p->p.getPrice()>=lowerPrice && p.getPrice()<=higherPrice).toList();
+        if(lowerPrice >= 0 && higherPrice > lowerPrice){
+            searchedproducts.addAll(produitRepository.findProductByPrice(lowerPrice,higherPrice));
+        }
+        if(category != null &&
+                !category.isEmpty()){
+            searchedproducts.addAll(produitRepository.findProductByCategory(category));
+        }
 
+        return searchedproducts;
+    }
 }
