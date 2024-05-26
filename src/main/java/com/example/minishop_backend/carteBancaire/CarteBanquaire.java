@@ -10,19 +10,22 @@ public class CarteBanquaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
+    private String rib;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     public CarteBanquaire() {
     }
 
-    public CarteBanquaire(Long id, String type) {
+    public CarteBanquaire(Long id, String type, String rib) {
         this.id = id;
         this.type = type;
+        this.rib = rib;
     }
 
-    public CarteBanquaire(String type) {
+    public CarteBanquaire(String type, String rib) {
         this.type = type;
+        this.rib = rib;
     }
 
     public Long getId() {
@@ -41,11 +44,28 @@ public class CarteBanquaire {
         this.type = type;
     }
 
+    public String getRib() {
+        return rib;
+    }
+
+    public void setRib(String rib) {
+        this.rib = rib;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "CarteBanquaire{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
+                ", rib='" + rib + '\'' +
                 '}';
     }
 }
