@@ -40,6 +40,14 @@ public class Image {
         this.url = url;
     }
 
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
