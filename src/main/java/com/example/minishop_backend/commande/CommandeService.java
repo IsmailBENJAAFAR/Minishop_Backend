@@ -39,11 +39,8 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
-        items = itemsService.addMultipleItems(items);
-
         Commande commande = new Commande();
         commande.setDate(new Date());
-        commande.setItems(items);
         commande.setUser(userService.getCurrentUser());
 
         commande = commandeRepository.save(commande);
