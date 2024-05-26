@@ -1,6 +1,7 @@
 package com.example.minishop_backend.produit;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,5 +60,10 @@ public class ProduitController {
             higherPrice = 99999999F;
         }
         return produitService.searchProduit(name, brand, category, lowerPrice, higherPrice);
+    }
+
+    @GetMapping("{productId}")
+    public ResponseEntity<Produit> getProduitById(@PathVariable("productId") Long id) {
+        return ResponseEntity.ok(produitService.getProduit(id));
     }
 }
