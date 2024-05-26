@@ -39,6 +39,13 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
+        // do a pass to check if this can be done, if yes, then you do
+        // another pass to actually commit the changes to the database
+        // if not, then you throw an error to the user
+        items.forEach(items1 -> {
+            items1.getProduit();
+        });
+
         Commande commande = new Commande();
         commande.setDate(new Date());
         commande.setUser(userService.getCurrentUser());
