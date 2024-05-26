@@ -1,5 +1,7 @@
 package com.example.minishop_backend.cart;
 
+import com.example.minishop_backend.items.Items;
+import com.example.minishop_backend.items.ItemsService;
 import com.example.minishop_backend.produit.Produit;
 import com.example.minishop_backend.produit.ProduitService;
 import com.example.minishop_backend.user.User;
@@ -18,33 +20,41 @@ import java.util.Map;
 public class CartService {
     private final UserService userService;
     private final ProduitService produitService;
+    private final ItemsService itemsService;
     private final Map<Long, Cart> userCarts = new HashMap<>();
 
-    public List<Produit> getProduitsInCart() {
+    public List<Items> getItemsInCart() {
         User currentUser = userService.getCurrentUser();
         if (!userCarts.containsKey(currentUser.getId()))
             return List.of();
 
-        List<Long> produitsIds = userCarts.get(currentUser.getId()).getProductIds();
+        List<Long> itemsIds = userCarts.get(currentUser.getId()).getItemsIds();
 
-        return produitService.getProduits().stream().filter(
-                produit -> produitsIds.contains(produit.getId())
+        return itemsService.getItems().stream().filter(
+                items -> itemsIds.contains(items.getId())
         ).toList();
     }
 
-    public List<Produit> addProductToCart(Long id) {
+    public List<Items> addItemsToCart(Long productId, int quantity) {
+        Items items = new Items();
+        Produit produit = produitService.getProduit(productId);
+        // check that quantity is not... 0
+        items.setQuantity(quantity);
+        items.setProduit(produit);
+        items = itemsService.addItems(items);
+
         User currentUser = userService.getCurrentUser();
         if (userCarts.get(currentUser.getId()) == null)
             userCarts.put(currentUser.getId(), new Cart());
 
-        List<Long> productIds = userCarts.get(currentUser.getId()).getProductIds();
-        if (!productIds.contains(id))
-            productIds.add(id);
+        List<Long> itemsId = userCarts.get(currentUser.getId()).getItemsIds();
+        if (!itemsId.contains(items.getId()))
+            itemsId.add(items.getId());
 
-        return getProduitsInCart();
+        return getItemsInCart();
     }
 
-    public List<Produit> clearCart() {
+    public List<Items> clearCart() {
         User currentUser = userService.getCurrentUser();
         userCarts.remove(currentUser.getId());
 

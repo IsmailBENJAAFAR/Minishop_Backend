@@ -138,10 +138,6 @@ public class Produit {
         this.discount = discount;
     }
 
-    public Items getItems() {
-        return items;
-    }
-
     public void setItems(Items items) {
         this.items = items;
     }

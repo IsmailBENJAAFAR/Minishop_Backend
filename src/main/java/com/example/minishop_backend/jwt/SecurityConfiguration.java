@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         req -> req.requestMatchers("/auth/**", "/produit/all")
                                 .permitAll()
-                                .requestMatchers("/produit/adminOnly/**").hasAuthority("ADMIN")
+                                .requestMatchers("/produit/adminOnly/**", "/commande/adminOnly/**")
+                                .hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsService)

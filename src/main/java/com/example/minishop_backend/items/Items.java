@@ -18,6 +18,14 @@ public class Items {
     @JoinColumn(name = "produit_id", referencedColumnName = "id")
     private Produit produit;
 
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
     public Items() {
     }
 

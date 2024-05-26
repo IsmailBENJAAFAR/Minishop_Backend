@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private final List<Long> productIds = new ArrayList<>();
+    private final List<Long> itemsIds = new ArrayList<>();
 
-    public List<Long> getProductIds() {
-        return productIds;
+    public List<Long> getItemsIds() {
+        return itemsIds;
     }
 }
