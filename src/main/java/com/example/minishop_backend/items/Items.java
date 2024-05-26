@@ -18,6 +18,10 @@ public class Items {
     @JoinColumn(name = "produit_id", referencedColumnName = "id")
     private Produit produit;
 
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
     public Produit getProduit() {
         return produit;
     }

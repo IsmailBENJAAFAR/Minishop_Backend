@@ -39,7 +39,7 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
-        items = itemsService.addMultipleItems(items);
+//        items = itemsService.addMultipleItems(items);
 
         Commande commande = new Commande();
         commande.setDate(new Date());
