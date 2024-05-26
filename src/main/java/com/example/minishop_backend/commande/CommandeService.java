@@ -39,7 +39,7 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
-//        items = itemsService.addMultipleItems(items);
+        items = itemsService.addMultipleItems(items);
 
         Commande commande = new Commande();
         commande.setDate(new Date());
@@ -47,6 +47,9 @@ public class CommandeService {
         commande.setUser(userService.getCurrentUser());
 
         commande = commandeRepository.save(commande);
+        Commande finalCommande = commande;
+        items.forEach(items1 -> items1.setCommande(finalCommande));
+        items.forEach(itemsService::addItems);
         cartService.clearCart();
 
         return commande;
