@@ -8,6 +8,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,12 +60,19 @@ public class AuthenticationService {
                     )
             );
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+//            System.err.println(e.getMessage());
         }
 
-        User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.generateToken(user);
+        try {
+            User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+            if (!passwordEncoder.matches(request.getPassword(), user.getPassword()))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid password");
+            String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(token);
+            return new AuthenticationResponse(token);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }
