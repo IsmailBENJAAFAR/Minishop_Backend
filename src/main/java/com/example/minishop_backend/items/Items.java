@@ -14,13 +14,14 @@ public class Items {
     @ManyToOne
     @JoinColumn(name = "commande_id")
     private Commande commande;
-    @OneToOne
-    @JoinColumn(name = "produit_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
     private Produit produit;
 
     public void setCommande(Commande commande) {
         this.commande = commande;
     }
+
 
     public Produit getProduit() {
         return produit;

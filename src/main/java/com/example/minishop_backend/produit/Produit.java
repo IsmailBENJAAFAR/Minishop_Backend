@@ -26,8 +26,8 @@ public class Produit {
     @ManyToOne
     @JoinColumn(name = "discount_id")
     private Discount discount;
-    @OneToOne(mappedBy = "produit")
-    private Items items;
+    @OneToMany(mappedBy = "produit")
+    private List<Items> items;
     @ManyToMany(mappedBy = "produits")
     private List<Notation> notations;
     @ManyToMany(mappedBy = "produits")
@@ -136,10 +136,6 @@ public class Produit {
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
-    }
-
-    public void setItems(Items items) {
-        this.items = items;
     }
 
     public List<Notation> getNotations() {
