@@ -15,6 +15,10 @@ public class ItemsService {
         return itemsRepository.findAll();
     }
 
+    public List<Items> addMultipleItems(List<Items> itemsList) {
+        return itemsRepository.saveAll(itemsList);
+    }
+
     public Items addItems(Items items) {
         return itemsRepository.save(items);
     }

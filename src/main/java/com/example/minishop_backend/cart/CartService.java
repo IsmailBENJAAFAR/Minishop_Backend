@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,19 +21,14 @@ import java.util.Map;
 public class CartService {
     private final UserService userService;
     private final ProduitService produitService;
-    private final ItemsService itemsService;
-    private final Map<Long, Cart> userCarts = new HashMap<>();
+    private final Map<Long, List<Items>> userCarts = new HashMap<>();
 
     public List<Items> getItemsInCart() {
         User currentUser = userService.getCurrentUser();
         if (!userCarts.containsKey(currentUser.getId()))
             return List.of();
 
-        List<Long> itemsIds = userCarts.get(currentUser.getId()).getItemsIds();
-
-        return itemsService.getItems().stream().filter(
-                items -> itemsIds.contains(items.getId())
-        ).toList();
+        return userCarts.get(currentUser.getId());
     }
 
     public List<Items> addItemsToCart(Long productId, int quantity) {
@@ -41,15 +37,13 @@ public class CartService {
         // check that quantity is not... 0
         items.setQuantity(quantity);
         items.setProduit(produit);
-        items = itemsService.addItems(items);
 
         User currentUser = userService.getCurrentUser();
-        if (userCarts.get(currentUser.getId()) == null)
-            userCarts.put(currentUser.getId(), new Cart());
+        userCarts.computeIfAbsent(currentUser.getId(), k -> new ArrayList<>());
 
-        List<Long> itemsId = userCarts.get(currentUser.getId()).getItemsIds();
-        if (!itemsId.contains(items.getId()))
-            itemsId.add(items.getId());
+        List<Items> itemsList = userCarts.get(currentUser.getId());
+        if (!itemsList.contains(items))
+            itemsList.add(items);
 
         return getItemsInCart();
     }

@@ -18,8 +18,13 @@ public class CommandeController {
         return commandeService.getCommandes();
     }
 
-//    @PostMapping("add")
-//    public ResponseEntity<Commande> addCommande() {
-//
-//    }
+    @GetMapping("all")
+    public List<Commande> getAllUserCommandes() {
+        return commandeService.getUserCommandes();
+    }
+
+    @PostMapping("addFromCart")
+    public ResponseEntity<Commande> addCommandeFromCart() {
+        return ResponseEntity.ok(commandeService.addCommandeFromCart());
+    }
 }

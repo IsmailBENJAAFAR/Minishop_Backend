@@ -1,8 +1,11 @@
 package com.example.minishop_backend.commande;
 
 import com.example.minishop_backend.cart.CartService;
+import com.example.minishop_backend.items.Items;
+import com.example.minishop_backend.items.ItemsService;
 import com.example.minishop_backend.notation.Notation;
 import com.example.minishop_backend.produit.Produit;
+import com.example.minishop_backend.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,20 +18,39 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CommandeService {
     private final CommandeRepository commandeRepository;
+    private final ItemsService itemsService;
+    private final UserService userService;
     private final CartService cartService;
 
     public List<Commande> getCommandes() {
         return commandeRepository.findAll();
     }
 
+    public List<Commande> getUserCommandes() {
+        Long userId = userService.getCurrentUser().getId();
+        return commandeRepository.findAll().stream()
+                .filter(commande -> commande.getUser().getId().equals(userId)).toList();
+    }
+
     public void addCommande(Commande commande) {
         commandeRepository.save(commande);
     }
 
-//    public Commande addCommandeFromCart() {
-//        List<Produit> produits = cartService.getProduitsInCart();
-//        Commande commande = new Commande();
-//    }
+    public Commande addCommandeFromCart() {
+        List<Items> items = cartService.getItemsInCart();
+
+        items = itemsService.addMultipleItems(items);
+
+        Commande commande = new Commande();
+        commande.setDate(new Date());
+        commande.setItems(items);
+        commande.setUser(userService.getCurrentUser());
+
+        commande = commandeRepository.save(commande);
+        cartService.clearCart();
+
+        return commande;
+    }
 
     @Transactional
     public void updateCommande(Long id, Date date) {

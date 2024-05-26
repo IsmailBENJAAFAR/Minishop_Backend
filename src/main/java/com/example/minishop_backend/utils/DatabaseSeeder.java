@@ -2,6 +2,7 @@ package com.example.minishop_backend.utils;
 
 import com.example.minishop_backend.image.Image;
 import com.example.minishop_backend.image.ImageRepository;
+import com.example.minishop_backend.items.ItemsRepository;
 import com.example.minishop_backend.produit.Produit;
 import com.example.minishop_backend.produit.ProduitRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class DatabaseSeeder implements CommandLineRunner {
+    private final ItemsRepository itemsRepository;
     private final ProduitRepository produitRepository;
     private final ImageRepository imageRepository;
 
