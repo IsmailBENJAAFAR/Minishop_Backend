@@ -39,7 +39,8 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
-        // do a pass to check if this can be done, if yes, then you do
+        // do a pass to check if this can be done (meaning the items quantities are enough,
+        // if yes, then you do
         // another pass to actually commit the changes to the database
         // if not, then you throw an error to the user
         items.forEach(items1 -> {
