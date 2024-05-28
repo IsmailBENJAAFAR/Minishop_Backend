@@ -34,6 +34,7 @@ services:
       - app-network
     volumes:
       - .:/app
+      - ./dependencies:/root/.m2
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
