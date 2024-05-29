@@ -84,13 +84,11 @@ public class ProduitService {
     }
 
     public List<Produit> searchProduit(String name, String brand, String category, float lowerPrice, float higherPrice) {
-        List<Produit> searchedproducts = produitRepository.findAll().stream()
+        return produitRepository.findAll().stream()
                 .filter(produit -> brand == null || produit.getBrand().contains(brand))
                 .filter(produit -> name == null || produit.getName().contains(name))
                 .filter(produit -> category == null || produit.getCategory().contains(category))
                 .filter(produit -> produit.getPrice() >= lowerPrice && produit.getPrice() <= higherPrice)
                 .toList();
-
-        return searchedproducts;
     }
 }

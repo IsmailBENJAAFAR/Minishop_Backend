@@ -32,9 +32,11 @@ public class CartService {
     }
 
     public List<Items> addItemsToCart(Long productId, int quantity) {
+        if (quantity <= 0)
+            return getItemsInCart();
+
         Items items = new Items();
         Produit produit = produitService.getProduit(productId);
-        // check that quantity is not... 0
         items.setQuantity(quantity);
         items.setProduit(produit);
 
@@ -42,7 +44,8 @@ public class CartService {
         userCarts.computeIfAbsent(currentUser.getId(), k -> new ArrayList<>());
 
         List<Items> itemsList = userCarts.get(currentUser.getId());
-        if (!itemsList.contains(items))
+        if (itemsList.stream()
+                .noneMatch(items1 -> items1.getProduit().getId().equals(items.getProduit().getId())))
             itemsList.add(items);
 
         return getItemsInCart();

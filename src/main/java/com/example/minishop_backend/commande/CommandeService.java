@@ -3,12 +3,13 @@ package com.example.minishop_backend.commande;
 import com.example.minishop_backend.cart.CartService;
 import com.example.minishop_backend.items.Items;
 import com.example.minishop_backend.items.ItemsService;
-import com.example.minishop_backend.notation.Notation;
-import com.example.minishop_backend.produit.Produit;
+import com.example.minishop_backend.produit.ProduitService;
 import com.example.minishop_backend.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CommandeService {
     private final CommandeRepository commandeRepository;
+    private final ProduitService produitService;
     private final ItemsService itemsService;
     private final UserService userService;
     private final CartService cartService;
@@ -39,12 +41,22 @@ public class CommandeService {
     public Commande addCommandeFromCart() {
         List<Items> items = cartService.getItemsInCart();
 
-        // do a pass to check if this can be done (meaning the items quantities are enough,
-        // if yes, then you do
-        // another pass to actually commit the changes to the database
-        // if not, then you throw an error to the user
         items.forEach(items1 -> {
-            items1.getProduit();
+            if (items1.getProduit().getQuantity() < items1.getQuantity())
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough items available to fulfill this command");
+        });
+
+        items.forEach(items1 -> {
+            var produit = items1.getProduit();
+            produitService.updateProduit(
+                    produit.getId(),
+                    null,
+                    null,
+                    -1,
+                    null,
+                    null,
+                    produit.getQuantity() - items1.getQuantity()
+            );
         });
 
         Commande commande = new Commande();
