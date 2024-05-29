@@ -20,8 +20,8 @@ public class UserController {
     public ResponseEntity<User> getCurrentUser() {
         return ResponseEntity.ok(userService.getCurrentUser());
     }
-    @PostMapping("favorise")
-    public void favoriseProduct(@RequestParam(required = true) Long product_id){
+    @PostMapping("favorise/{productId}")
+    public void favoriseProduct(@PathVariable("productId") Long product_id){
         userService.favorise(userService.getCurrentUser(),product_id);
     }
 }

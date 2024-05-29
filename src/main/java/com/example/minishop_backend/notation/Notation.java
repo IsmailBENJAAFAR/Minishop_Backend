@@ -49,14 +49,6 @@ public class Notation {
         this.etoiles = etoiles;
     }
 
-    public List<Produit> getProduits() {
-        return produits;
-    }
-
-    public void setProduits(List<Produit> produits) {
-        this.produits = produits;
-    }
-
     public List<User> getUsers() {
         return users;
     }
