@@ -15,4 +15,9 @@ public class UserController {
     public ResponseEntity<User> updateUserInfo(@RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(user));
     }
+
+    @GetMapping()
+    public ResponseEntity<User> getCurrentUser() {
+        return ResponseEntity.ok(userService.getCurrentUser());
+    }
 }
