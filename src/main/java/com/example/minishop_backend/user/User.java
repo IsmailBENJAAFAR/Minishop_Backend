@@ -136,4 +136,8 @@ public class User implements UserDetails {
                 ", role=" + role +
                 '}';
     }
+
+    public void setProduits(List<Produit> produits) {
+        this.produits = produits;
+    }
 }
