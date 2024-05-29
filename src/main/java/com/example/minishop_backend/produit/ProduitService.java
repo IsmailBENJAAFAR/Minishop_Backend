@@ -84,27 +84,12 @@ public class ProduitService {
     }
 
     public List<Produit> searchProduit(String name, String brand, String category, float lowerPrice, float higherPrice) {
-        List<Produit> searchedproducts = new ArrayList<Produit>();
-        if (brand != null &&
-                !brand.isEmpty()) {
-            searchedproducts.addAll(produitRepository.findProductByBrand(brand));
-        }
-        if (name != null &&
-                !name.isEmpty()) {
-            searchedproducts.addAll(produitRepository.findProductByName(name));
-        }
-        if (category != null &&
-                !category.isEmpty()) {
-            searchedproducts.addAll(produitRepository.findProductByCategory(category));
-        }
-        //searchedproducts.stream().filter(p->p.getPrice()>=lowerPrice && p.getPrice()<=higherPrice).toList();
-        if (lowerPrice >= 0 && higherPrice > lowerPrice) {
-            searchedproducts.addAll(produitRepository.findProductByPrice(lowerPrice, higherPrice));
-        }
-        if (category != null &&
-                !category.isEmpty()) {
-            searchedproducts.addAll(produitRepository.findProductByCategory(category));
-        }
+        List<Produit> searchedproducts = produitRepository.findAll().stream()
+                .filter(produit -> brand == null || produit.getBrand().contains(brand))
+                .filter(produit -> name == null || produit.getName().contains(name))
+                .filter(produit -> category == null || produit.getCategory().contains(category))
+                .filter(produit -> produit.getPrice() >= lowerPrice && produit.getPrice() <= higherPrice)
+                .toList();
 
         return searchedproducts;
     }
