@@ -51,6 +51,14 @@ public class CartService {
         return getItemsInCart();
     }
 
+    public List<Items> removeItemsFromCart(Long productId) {
+        User currentUser = userService.getCurrentUser();
+        userCarts.replace(currentUser.getId(), userCarts.get(currentUser.getId())
+                .stream().filter(items -> !items.getProduit().getId().equals(productId)).toList());
+
+        return getItemsInCart();
+    }
+
     public List<Items> clearCart() {
         User currentUser = userService.getCurrentUser();
         userCarts.remove(currentUser.getId());

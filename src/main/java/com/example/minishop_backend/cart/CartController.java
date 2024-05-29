@@ -29,4 +29,9 @@ public class CartController {
     public ResponseEntity<List<Items>> clearCart() {
         return ResponseEntity.ok(cartService.clearCart());
     }
+
+    @PostMapping("remove/{productId}")
+    public ResponseEntity<List<Items>> removeFromCart(@PathVariable("productId") Long productId) {
+        return ResponseEntity.ok(cartService.removeItemsFromCart(productId));
+    }
 }
