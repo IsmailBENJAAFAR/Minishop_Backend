@@ -43,7 +43,7 @@ services:
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "8081:80"
+      - "8088:80"
     depends_on:
       - shopdb
     networks:
